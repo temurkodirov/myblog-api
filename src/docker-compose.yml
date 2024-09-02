@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  myblog.api:
+    image: ${DOCKER_REGISTRY-}myblogapi
+    container_name: myblog.api
+    build:
+      context: .
+      dockerfile: MyBlog.Api/Dockerfile
+    ports:
+      - "5050:5050"
+      - "5051:5051"
+ 
+
+  myblog.database:
+    image: postgres:latest
+    container_name: myblog.database
+    environment:
+      - POSTGRES_DB=myblog
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+    volumes:
+      - ./.containers/myblog-db:/var/lib/postgresql/data
+    ports:
+      - 5433:5432 
+  
+
+
+
+  
